@@ -1,0 +1,393 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.salon:salon-booking >-----------------------
+[INFO] Building Hair Salon Booking System 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:2.7.14:run (default-cli) > test-compile @ salon-booking >>>
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ salon-booking ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 1 resource
+[INFO] Copying 0 resource
+[INFO] 
+[INFO] --- compiler:3.10.1:compile (default-compile) @ salon-booking ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ salon-booking ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /Users/hristiangerov/Library/Mobile Documents/com~apple~CloudDocs/School/diplomen/backend/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.10.1:testCompile (default-testCompile) @ salon-booking ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:2.7.14:run (default-cli) < test-compile @ salon-booking <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:2.7.14:run (default-cli) @ salon-booking ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.14)
+
+2026-01-20 08:14:00.163  INFO 30926 --- [           main] com.salon.SalonBookingApplication        : Starting SalonBookingApplication using Java 17.0.17 on Hristians-MacBook-Pro.local with PID 30926 (/Users/hristiangerov/Library/Mobile Documents/com~apple~CloudDocs/School/diplomen/backend/target/classes started by hristiangerov in /Users/hristiangerov/Library/Mobile Documents/com~apple~CloudDocs/School/diplomen/backend)
+2026-01-20 08:14:00.164  INFO 30926 --- [           main] com.salon.SalonBookingApplication        : No active profile set, falling back to 1 default profile: "default"
+2026-01-20 08:14:00.335  INFO 30926 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-20 08:14:00.352  INFO 30926 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 7 JPA repository interfaces.
+2026-01-20 08:14:00.504  INFO 30926 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2026-01-20 08:14:00.506  INFO 30926 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-01-20 08:14:00.506  INFO 30926 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.78]
+2026-01-20 08:14:00.530  INFO 30926 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-01-20 08:14:00.530  INFO 30926 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 355 ms
+2026-01-20 08:14:00.573  INFO 30926 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-20 08:14:00.586  INFO 30926 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2026-01-20 08:14:00.625  INFO 30926 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2026-01-20 08:14:00.647  INFO 30926 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-01-20 08:14:00.711  INFO 30926 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-01-20 08:14:00.717  INFO 30926 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2026-01-20 08:14:00.894  INFO 30926 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2026-01-20 08:14:00.897  INFO 30926 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-20 08:14:01.173  INFO 30926 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@55202ba6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2ef1fc8a, org.springframework.security.web.context.SecurityContextPersistenceFilter@314c28dc, org.springframework.security.web.header.HeaderWriterFilter@185bf6e0, org.springframework.web.filter.CorsFilter@1f12d5e0, org.springframework.security.web.authentication.logout.LogoutFilter@632b96b8, com.salon.security.JwtAuthenticationFilter@3d2b13b1, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2f498f21, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@90394d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@38874eb5, org.springframework.security.web.session.SessionManagementFilter@8091d80, org.springframework.security.web.access.ExceptionTranslationFilter@2e1e7bc6, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@53551fef]
+2026-01-20 08:14:01.189  WARN 30926 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-01-20 08:14:01.305  INFO 30926 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2026-01-20 08:14:01.308  INFO 30926 --- [           main] com.salon.SalonBookingApplication        : Started SalonBookingApplication in 1.237 seconds (JVM running for 1.326)
+2026-01-20 08:14:15.058  INFO 30926 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-20 08:14:15.058  INFO 30926 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-01-20 08:14:15.059  INFO 30926 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+Hibernate: 
+    select
+        user0_.id as id1_5_,
+        user0_.created_at as created_2_5_,
+        user0_.email as email3_5_,
+        user0_.first_name as first_na4_5_,
+        user0_.last_name as last_nam5_5_,
+        user0_.password as password6_5_,
+        user0_.phone as phone7_5_,
+        user0_.role as role8_5_,
+        user0_.updated_at as updated_9_5_,
+        user0_.username as usernam10_5_ 
+    from
+        users user0_ 
+    where
+        user0_.username=?
+Hibernate: 
+    select
+        appointmen0_.id as id1_0_,
+        appointmen0_.appointment_date as appointm2_0_,
+        appointmen0_.appointment_time as appointm3_0_,
+        appointmen0_.created_at as created_4_0_,
+        appointmen0_.hairdresser_id as hairdres8_0_,
+        appointmen0_.notes as notes5_0_,
+        appointmen0_.service_id as service_9_0_,
+        appointmen0_.status as status6_0_,
+        appointmen0_.updated_at as updated_7_0_,
+        appointmen0_.user_id as user_id10_0_ 
+    from
+        appointments appointmen0_
+Hibernate: 
+    select
+        hairdresse0_.id as id1_2_0_,
+        hairdresse0_.created_at as created_2_2_0_,
+        hairdresse0_.email as email3_2_0_,
+        hairdresse0_.is_active as is_activ4_2_0_,
+        hairdresse0_.name as name5_2_0_,
+        hairdresse0_.phone as phone6_2_0_,
+        hairdresse0_.specialization as speciali7_2_0_ 
+    from
+        hairdressers hairdresse0_ 
+    where
+        hairdresse0_.id=?
+Hibernate: 
+    select
+        service0_.id as id1_4_0_,
+        service0_.category_id as category7_4_0_,
+        service0_.created_at as created_2_4_0_,
+        service0_.description as descript3_4_0_,
+        service0_.duration_minutes as duration4_4_0_,
+        service0_.name as name5_4_0_,
+        service0_.updated_at as updated_6_4_0_,
+        category1_.id as id1_1_1_,
+        category1_.created_at as created_2_1_1_,
+        category1_.description as descript3_1_1_,
+        category1_.name as name4_1_1_ 
+    from
+        services service0_ 
+    inner join
+        categories category1_ 
+            on service0_.category_id=category1_.id 
+    where
+        service0_.id=?
+Hibernate: 
+    select
+        user0_.id as id1_5_0_,
+        user0_.created_at as created_2_5_0_,
+        user0_.email as email3_5_0_,
+        user0_.first_name as first_na4_5_0_,
+        user0_.last_name as last_nam5_5_0_,
+        user0_.password as password6_5_0_,
+        user0_.phone as phone7_5_0_,
+        user0_.role as role8_5_0_,
+        user0_.updated_at as updated_9_5_0_,
+        user0_.username as usernam10_5_0_ 
+    from
+        users user0_ 
+    where
+        user0_.id=?
+Hibernate: 
+    select
+        service0_.id as id1_4_0_,
+        service0_.category_id as category7_4_0_,
+        service0_.created_at as created_2_4_0_,
+        service0_.description as descript3_4_0_,
+        service0_.duration_minutes as duration4_4_0_,
+        service0_.name as name5_4_0_,
+        service0_.updated_at as updated_6_4_0_,
+        category1_.id as id1_1_1_,
+        category1_.created_at as created_2_1_1_,
+        category1_.description as descript3_1_1_,
+        category1_.name as name4_1_1_ 
+    from
+        services service0_ 
+    inner join
+        categories category1_ 
+            on service0_.category_id=category1_.id 
+    where
+        service0_.id=?
+Hibernate: 
+    select
+        user0_.id as id1_5_0_,
+        user0_.created_at as created_2_5_0_,
+        user0_.email as email3_5_0_,
+        user0_.first_name as first_na4_5_0_,
+        user0_.last_name as last_nam5_5_0_,
+        user0_.password as password6_5_0_,
+        user0_.phone as phone7_5_0_,
+        user0_.role as role8_5_0_,
+        user0_.updated_at as updated_9_5_0_,
+        user0_.username as usernam10_5_0_ 
+    from
+        users user0_ 
+    where
+        user0_.id=?
+Hibernate: 
+    select
+        hairdresse0_.id as id1_2_0_,
+        hairdresse0_.created_at as created_2_2_0_,
+        hairdresse0_.email as email3_2_0_,
+        hairdresse0_.is_active as is_activ4_2_0_,
+        hairdresse0_.name as name5_2_0_,
+        hairdresse0_.phone as phone6_2_0_,
+        hairdresse0_.specialization as speciali7_2_0_ 
+    from
+        hairdressers hairdresse0_ 
+    where
+        hairdresse0_.id=?
+Hibernate: 
+    select
+        service0_.id as id1_4_0_,
+        service0_.category_id as category7_4_0_,
+        service0_.created_at as created_2_4_0_,
+        service0_.description as descript3_4_0_,
+        service0_.duration_minutes as duration4_4_0_,
+        service0_.name as name5_4_0_,
+        service0_.updated_at as updated_6_4_0_,
+        category1_.id as id1_1_1_,
+        category1_.created_at as created_2_1_1_,
+        category1_.description as descript3_1_1_,
+        category1_.name as name4_1_1_ 
+    from
+        services service0_ 
+    inner join
+        categories category1_ 
+            on service0_.category_id=category1_.id 
+    where
+        service0_.id=?
+Hibernate: 
+    select
+        count(appointmen0_.id) as col_0_0_ 
+    from
+        appointments appointmen0_ 
+    where
+        appointmen0_.status=?
+Hibernate: 
+    select
+        count(appointmen0_.id) as col_0_0_ 
+    from
+        appointments appointmen0_ 
+    where
+        appointmen0_.status=?
+Hibernate: 
+    select
+        count(appointmen0_.id) as col_0_0_ 
+    from
+        appointments appointmen0_ 
+    where
+        appointmen0_.status=?
+Hibernate: 
+    select
+        servicepri0_.id as id1_3_,
+        servicepri0_.created_at as created_2_3_,
+        servicepri0_.hairdresser_id as hairdres5_3_,
+        servicepri0_.price as price3_3_,
+        servicepri0_.service_id as service_6_3_,
+        servicepri0_.updated_at as updated_4_3_ 
+    from
+        service_prices servicepri0_ 
+    where
+        servicepri0_.service_id=? 
+        and servicepri0_.hairdresser_id=?
+Hibernate: 
+    select
+        servicepri0_.id as id1_3_,
+        servicepri0_.created_at as created_2_3_,
+        servicepri0_.hairdresser_id as hairdres5_3_,
+        servicepri0_.price as price3_3_,
+        servicepri0_.service_id as service_6_3_,
+        servicepri0_.updated_at as updated_4_3_ 
+    from
+        service_prices servicepri0_ 
+    where
+        servicepri0_.service_id=?
+Hibernate: 
+    select
+        hairdresse0_.id as id1_2_0_,
+        hairdresse0_.created_at as created_2_2_0_,
+        hairdresse0_.email as email3_2_0_,
+        hairdresse0_.is_active as is_activ4_2_0_,
+        hairdresse0_.name as name5_2_0_,
+        hairdresse0_.phone as phone6_2_0_,
+        hairdresse0_.specialization as speciali7_2_0_ 
+    from
+        hairdressers hairdresse0_ 
+    where
+        hairdresse0_.id=?
+Hibernate: 
+    select
+        servicepri0_.id as id1_3_,
+        servicepri0_.created_at as created_2_3_,
+        servicepri0_.hairdresser_id as hairdres5_3_,
+        servicepri0_.price as price3_3_,
+        servicepri0_.service_id as service_6_3_,
+        servicepri0_.updated_at as updated_4_3_ 
+    from
+        service_prices servicepri0_ 
+    where
+        servicepri0_.service_id=? 
+        and servicepri0_.hairdresser_id=?
+Hibernate: 
+    select
+        servicepri0_.id as id1_3_,
+        servicepri0_.created_at as created_2_3_,
+        servicepri0_.hairdresser_id as hairdres5_3_,
+        servicepri0_.price as price3_3_,
+        servicepri0_.service_id as service_6_3_,
+        servicepri0_.updated_at as updated_4_3_ 
+    from
+        service_prices servicepri0_ 
+    where
+        servicepri0_.service_id=?
+Hibernate: 
+    select
+        user0_.id as id1_5_,
+        user0_.created_at as created_2_5_,
+        user0_.email as email3_5_,
+        user0_.first_name as first_na4_5_,
+        user0_.last_name as last_nam5_5_,
+        user0_.password as password6_5_,
+        user0_.phone as phone7_5_,
+        user0_.role as role8_5_,
+        user0_.updated_at as updated_9_5_,
+        user0_.username as usernam10_5_ 
+    from
+        users user0_ 
+    where
+        user0_.username=?
+Hibernate: 
+    select
+        user0_.id as id1_5_0_,
+        user0_.created_at as created_2_5_0_,
+        user0_.email as email3_5_0_,
+        user0_.first_name as first_na4_5_0_,
+        user0_.last_name as last_nam5_5_0_,
+        user0_.password as password6_5_0_,
+        user0_.phone as phone7_5_0_,
+        user0_.role as role8_5_0_,
+        user0_.updated_at as updated_9_5_0_,
+        user0_.username as usernam10_5_0_ 
+    from
+        users user0_ 
+    where
+        user0_.id=?
+Hibernate: 
+    select
+        appointmen0_.id as id1_0_,
+        appointmen0_.appointment_date as appointm2_0_,
+        appointmen0_.appointment_time as appointm3_0_,
+        appointmen0_.created_at as created_4_0_,
+        appointmen0_.hairdresser_id as hairdres8_0_,
+        appointmen0_.notes as notes5_0_,
+        appointmen0_.service_id as service_9_0_,
+        appointmen0_.status as status6_0_,
+        appointmen0_.updated_at as updated_7_0_,
+        appointmen0_.user_id as user_id10_0_ 
+    from
+        appointments appointmen0_ 
+    where
+        appointmen0_.user_id=? 
+    order by
+        appointmen0_.appointment_date desc,
+        appointmen0_.appointment_time desc
+Hibernate: 
+    select
+        hairdresse0_.id as id1_2_0_,
+        hairdresse0_.created_at as created_2_2_0_,
+        hairdresse0_.email as email3_2_0_,
+        hairdresse0_.is_active as is_activ4_2_0_,
+        hairdresse0_.name as name5_2_0_,
+        hairdresse0_.phone as phone6_2_0_,
+        hairdresse0_.specialization as speciali7_2_0_ 
+    from
+        hairdressers hairdresse0_ 
+    where
+        hairdresse0_.id=?
+Hibernate: 
+    select
+        service0_.id as id1_4_0_,
+        service0_.category_id as category7_4_0_,
+        service0_.created_at as created_2_4_0_,
+        service0_.description as descript3_4_0_,
+        service0_.duration_minutes as duration4_4_0_,
+        service0_.name as name5_4_0_,
+        service0_.updated_at as updated_6_4_0_,
+        category1_.id as id1_1_1_,
+        category1_.created_at as created_2_1_1_,
+        category1_.description as descript3_1_1_,
+        category1_.name as name4_1_1_ 
+    from
+        services service0_ 
+    inner join
+        categories category1_ 
+            on service0_.category_id=category1_.id 
+    where
+        service0_.id=?
+Hibernate: 
+    select
+        hairdresse0_.id as id1_2_0_,
+        hairdresse0_.created_at as created_2_2_0_,
+        hairdresse0_.email as email3_2_0_,
+        hairdresse0_.is_active as is_activ4_2_0_,
+        hairdresse0_.name as name5_2_0_,
+        hairdresse0_.phone as phone6_2_0_,
+        hairdresse0_.specialization as speciali7_2_0_ 
+    from
+        hairdressers hairdresse0_ 
+    where
+        hairdresse0_.id=?
