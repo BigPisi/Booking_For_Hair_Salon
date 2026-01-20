@@ -24,7 +24,7 @@ public class UserService {
         return userRepository.findById(id);
     }
     
-    public User createUser(String username, String email, String password, String role) {
+    public User createUser(String username, String email, String phone, String password, String role) {
         if (userRepository.existsByUsername(username)) {
             throw new RuntimeException("Username already exists");
         }
@@ -35,6 +35,7 @@ public class UserService {
         User user = new User();
         user.setUsername(username);
         user.setEmail(email);
+        user.setPhone(phone);
         user.setPassword(passwordEncoder.encode(password));
         user.setRole(role != null ? role : "public");
         return userRepository.save(user);

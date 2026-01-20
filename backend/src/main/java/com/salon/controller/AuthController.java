@@ -42,9 +42,10 @@ public class AuthController {
         try {
             String username = request.get("username");
             String email = request.get("email");
+            String phone = request.get("phone");
             String password = request.get("password");
             
-            User user = userService.createUser(username, email, password, "public");
+            User user = userService.createUser(username, email, phone, password, "public");
             AuthRequest authRequest = new AuthRequest();
             authRequest.setUsername(username);
             authRequest.setPassword(password);

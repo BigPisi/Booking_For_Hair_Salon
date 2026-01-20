@@ -1,5 +1,6 @@
 let adminCategoriesCache = [];
 let editingServiceId = null;
+let editingCategoryId = null;
 
 function switchAdminTab(tab) {
     const servicesTab = document.getElementById('adminServices');
@@ -64,7 +65,7 @@ async function loadCategoriesAdmin() {
         const categories = await getCategoriesAPI();
         const container = document.getElementById('adminCategoriesList');
         container.innerHTML = categories.map(category => `
-            <div class="admin-item">
+            <div class="admin-item" data-category-id="${category.id}">
                 <div>
                     <h4>${category.name}</h4>
                     <p>${category.description || ''}</p>
@@ -159,18 +160,8 @@ function showAddServiceForm() {
 }
 
 function showAddCategoryForm() {
-    const name = prompt('Име на категория:');
-    if (!name) return;
-    
-    const description = prompt('Описание (по желание):');
-    
-    createCategoryAPI({
-        name: name,
-        description: description || ''
-    }).then(() => {
-        loadCategoriesAdmin();
-        alert('Категорията е добавена');
-    }).catch(err => alert(err.message));
+    placeCategoryEditorDefault();
+    openCategoryEditor(null);
 }
 
 async function editService(id) {
@@ -265,19 +256,12 @@ async function editCategory(id) {
     try {
         const categories = await getCategoriesAPI();
         const category = categories.find(c => c.id === id);
-        
-        const name = prompt('Име на категория:', category.name);
-        if (!name) return;
-        
-        const description = prompt('Описание:', category.description || '');
-        
-        await updateCategoryAPI(id, {
-            name: name,
-            description: description
-        });
-        
-        loadCategoriesAdmin();
-        alert('Категорията е обновена');
+        const editor = document.getElementById('categoryEditor');
+        const categoryRow = document.querySelector(`[data-category-id="${id}"]`);
+        if (editor && categoryRow) {
+            categoryRow.insertAdjacentElement('afterend', editor);
+        }
+        openCategoryEditor(category);
     } catch (error) {
         alert(error.message || 'Грешка при обновяване на категорията');
     }
@@ -295,4 +279,83 @@ async function deleteCategory(id) {
     } catch (error) {
         alert(error.message || 'Грешка при изтриване на категорията');
     }
+}
+
+function openCategoryEditor(category) {
+    const editor = document.getElementById('categoryEditor');
+    const title = document.getElementById('categoryEditorTitle');
+    const subtitle = document.getElementById('categoryEditorSubtitle');
+    const error = document.getElementById('categoryEditorError');
+    const nameInput = document.getElementById('categoryNameInput');
+    const descriptionInput = document.getElementById('categoryDescriptionInput');
+
+    error.textContent = '';
+    editor.style.display = 'block';
+
+    if (category) {
+        editingCategoryId = category.id;
+        title.textContent = 'Редакция на категория';
+        subtitle.textContent = `Редактирате ${category.name}`;
+        nameInput.value = category.name || '';
+        descriptionInput.value = category.description || '';
+    } else {
+        editingCategoryId = null;
+        title.textContent = 'Добавяне на категория';
+        subtitle.textContent = 'Попълнете всички полета, за да създадете нова категория.';
+        nameInput.value = '';
+        descriptionInput.value = '';
+    }
+}
+
+function closeCategoryEditor() {
+    const editor = document.getElementById('categoryEditor');
+    const error = document.getElementById('categoryEditorError');
+    editor.style.display = 'none';
+    error.textContent = '';
+    editingCategoryId = null;
+}
+
+function placeCategoryEditorDefault() {
+    const adminCategories = document.getElementById('adminCategories');
+    const editor = document.getElementById('categoryEditor');
+    if (adminCategories && editor && editor.parentElement !== adminCategories) {
+        adminCategories.insertBefore(editor, adminCategories.querySelector('#adminCategoriesList'));
+    }
+}
+
+async function saveCategory() {
+    const error = document.getElementById('categoryEditorError');
+    const nameInput = document.getElementById('categoryNameInput');
+    const descriptionInput = document.getElementById('categoryDescriptionInput');
+
+    const name = nameInput.value.trim();
+    const description = descriptionInput.value.trim();
+
+    if (!name) {
+        error.textContent = 'Моля, въведете име на категория.';
+        return;
+    }
+
+    try {
+        if (editingCategoryId) {
+            await updateCategoryAPI(editingCategoryId, {
+                name,
+                description
+            });
+        } else {
+            await createCategoryAPI({
+                name,
+                description
+            });
+        }
+        closeCategoryEditor();
+        loadCategoriesAdmin();
+    } catch (err) {
+        error.textContent = err.message || 'Грешка при записване на категорията.';
+    }
+}
+
+function cancelCategoryEdit() {
+    placeCategoryEditorDefault();
+    closeCategoryEditor();
 }

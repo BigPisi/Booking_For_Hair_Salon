@@ -43,13 +43,14 @@ async function login() {
 async function register() {
     const username = document.getElementById('regUsername').value;
     const email = document.getElementById('regEmail').value;
+    const phone = document.getElementById('regPhone').value;
     const password = document.getElementById('regPassword').value;
     const errorDiv = document.getElementById('registerError');
     
     errorDiv.textContent = '';
     
     try {
-        const response = await registerAPI(username, email, password);
+        const response = await registerAPI(username, email, phone, password);
         setAuthToken(response.token);
         setCurrentUser({
             id: response.userId,
@@ -60,6 +61,7 @@ async function register() {
         showSection('home');
         document.getElementById('regUsername').value = '';
         document.getElementById('regEmail').value = '';
+        document.getElementById('regPhone').value = '';
         document.getElementById('regPassword').value = '';
     } catch (error) {
         errorDiv.textContent = error.message || 'Неуспешна регистрация';

@@ -53,6 +53,7 @@ body {
     color: var(--rustic-olive);
     font-weight: bold;
     line-height: 1;
+    text-decoration: none;
 }
 
 .logo span {
@@ -455,9 +456,10 @@ body:not([data-active-section="home"]) .benefits-section {
 }
 
 .calendar-day.selected {
-    background: var(--rustic-olive);
+    background: var(--rustic-forest);
     color: #fff;
-    border-color: var(--rustic-olive);
+    border-color: var(--rustic-forest);
+    box-shadow: 0 0 0 2px #fff inset;
 }
 
 .calendar-day.disabled {
@@ -515,6 +517,97 @@ body:not([data-active-section="home"]) .benefits-section {
     background: var(--rustic-olive);
     color: white;
     border-color: var(--rustic-olive);
+}
+
+.site-footer {
+    margin-top: 3rem;
+    background: #f7f7f2;
+    border-top: 1px solid var(--rustic-sage);
+    color: var(--rustic-forest);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+}
+
+.footer-column h3 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.footer-column p {
+    margin: 0 0 0.6rem;
+}
+
+.footer-hours {
+    margin-top: 0.8rem;
+    font-weight: 600;
+}
+
+.footer-link {
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-bottom: 0.6rem;
+    color: var(--rustic-olive);
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+}
+
+.footer-cta .hero-cta {
+    margin-top: 0.75rem;
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--rustic-sage);
+    padding: 1rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.footer-legal {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--rustic-olive);
+    cursor: pointer;
+    font: inherit;
+    text-decoration: none;
+}
+
+.policy-content {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(15, 17, 17, 0.08);
+}
+
+.policy-content h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.6rem;
+    color: var(--rustic-forest);
+}
+
+.policy-content ul {
+    padding-left: 1.4rem;
+    margin: 0.6rem 0 1rem;
+}
+
+.policy-updated {
+    margin-top: 1.8rem;
+    font-weight: 600;
 }
 
 .time-slot.unavailable {

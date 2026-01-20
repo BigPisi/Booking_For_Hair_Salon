@@ -61,10 +61,10 @@ async function loginAPI(username, password) {
     });
 }
 
-async function registerAPI(username, email, password) {
+async function registerAPI(username, email, phone, password) {
     return apiRequest('/auth/register', {
         method: 'POST',
-        body: JSON.stringify({ username, email, password })
+        body: JSON.stringify({ username, email, phone, password })
     });
 }
 
