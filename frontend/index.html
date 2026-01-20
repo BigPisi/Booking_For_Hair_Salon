@@ -330,6 +330,38 @@
         </section>
     </div>
 
+    <div id="calendarModal" class="modal-backdrop" style="display:none;">
+        <div class="modal-card">
+            <h3>Запазихте час успешно!</h3>
+            <p>Искате ли да добавите събитието в календара си?</p>
+            <div class="modal-actions">
+                <button type="button" class="btn-primary" onclick="downloadLastCalendarInvite()">Запази в календар</button>
+                <button type="button" class="btn-secondary" onclick="closeCalendarModal()">Не, благодаря</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal-backdrop" style="display:none;">
+        <div class="modal-card">
+            <h3 id="confirmModalTitle">Потвърждение</h3>
+            <p id="confirmModalMessage"></p>
+            <div class="modal-actions">
+                <button type="button" class="btn-primary" id="confirmModalYes">Да, откажи</button>
+                <button type="button" class="btn-secondary" id="confirmModalNo">Назад</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="infoModal" class="modal-backdrop" style="display:none;">
+        <div class="modal-card">
+            <h3 id="infoModalTitle">Готово</h3>
+            <p id="infoModalMessage"></p>
+            <div class="modal-actions">
+                <button type="button" class="btn-primary" id="infoModalOk">Добре</button>
+            </div>
+        </div>
+    </div>
+
     <footer class="site-footer">
         <div class="footer-content">
             <div class="footer-column">

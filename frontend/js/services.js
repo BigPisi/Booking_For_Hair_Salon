@@ -1,6 +1,8 @@
 let allServices = [];
 let allCategories = [];
 let currentBookingServiceId = null;
+let currentBookingService = null;
+let lastCalendarInvite = null;
 let calendarState = {
     selectedDate: null,
     visibleMonth: null,
@@ -98,6 +100,7 @@ async function bookService(serviceId) {
     try {
         const service = await getServiceAPI(serviceId);
         currentBookingServiceId = serviceId;
+        currentBookingService = service;
         const hairdressers = await getHairdressersAPI();
         
         const bookingForm = document.getElementById('bookingForm');
@@ -132,6 +135,7 @@ async function bookService(serviceId) {
                 <div id="timeSlots" class="time-slots"></div>
                 <label>Бележки (по желание):</label>
                 <textarea id="bookingNotes" rows="3"></textarea>
+                <div id="calendarInvite" class="calendar-invite"></div>
                 <button onclick="submitBooking(${service.id})">Потвърди</button>
                 <button onclick="showSection('services')" class="btn-secondary">Отказ</button>
             </div>
@@ -321,6 +325,8 @@ async function submitBooking(serviceId) {
     }
     
     const hairdresserId = document.getElementById('bookingHairdresser').value;
+    const hairdresserName = document.getElementById('bookingHairdresser')
+        .selectedOptions[0]?.textContent?.trim();
     const date = document.getElementById('bookingDate').value;
     const notes = document.getElementById('bookingNotes').value;
     
@@ -335,13 +341,102 @@ async function submitBooking(serviceId) {
             appointmentTime: appointmentTime,
             notes: notes
         });
-        
-        alert('Часът е запазен!');
+
+        if (currentBookingService && hairdresserName) {
+            lastCalendarInvite = {
+                service: currentBookingService,
+                hairdresserName,
+                date,
+                time: selectedTime
+            };
+            showCalendarModal();
+        } else {
+            alert('Часът е запазен!');
+        }
         showSection('bookings');
         loadBookings();
     } catch (error) {
         alert(error.message || 'Грешка при записване на час');
     }
+}
+
+function downloadLastCalendarInvite() {
+    if (!lastCalendarInvite) {
+        return;
+    }
+    downloadCalendarInvite(
+        lastCalendarInvite.service,
+        lastCalendarInvite.hairdresserName,
+        lastCalendarInvite.date,
+        lastCalendarInvite.time
+    );
+    closeCalendarModal();
+}
+
+function showCalendarModal() {
+    const modal = document.getElementById('calendarModal');
+    if (modal) {
+        modal.style.display = 'flex';
+    }
+}
+
+function closeCalendarModal() {
+    const modal = document.getElementById('calendarModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+function downloadCalendarInvite(service, hairdresserName, dateStr, timeStr) {
+    const startDate = buildDateTime(dateStr, timeStr);
+    const endDate = new Date(startDate.getTime() + (service.durationMinutes || 30) * 60000);
+    const uid = `${Date.now()}-${Math.random().toString(16).slice(2)}@esteta.bg`;
+    const dtStamp = formatICSDate(new Date());
+    const dtStart = formatICSDate(startDate);
+    const dtEnd = formatICSDate(endDate);
+
+    const lines = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//ESTETA//Salon Booking//BG',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        'BEGIN:VEVENT',
+        `UID:${uid}`,
+        `DTSTAMP:${dtStamp}`,
+        `DTSTART;TZID=Europe/Sofia:${dtStart}`,
+        `DTEND;TZID=Europe/Sofia:${dtEnd}`,
+        `SUMMARY:${escapeICS(`Запазен час: ${service.name}`)}`,
+        `DESCRIPTION:${escapeICS(`Услуга: ${service.name}\\nФризьор: ${hairdresserName}`)}`,
+        'LOCATION:ЕСТЕТА, София, ул. Позитано 63',
+        'END:VEVENT',
+        'END:VCALENDAR'
+    ];
+
+    const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `esteta-${dateStr}-${timeStr.replace(':', '')}.ics`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+function buildDateTime(dateStr, timeStr) {
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    return new Date(year, month - 1, day, hours, minutes, 0);
+}
+
+function formatICSDate(date) {
+    const pad = value => String(value).padStart(2, '0');
+    return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}T${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}`;
+}
+
+function escapeICS(value) {
+    return value.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
 }
 
 // Reload time slots when hairdresser changes
