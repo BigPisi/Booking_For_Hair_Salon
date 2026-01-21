@@ -43,7 +43,8 @@ async function apiRequest(endpoint, options = {}) {
         }
         
         if (!response.ok) {
-            throw new Error(data.error || 'Request failed');
+            const errorMessage = data && data.error ? data.error : 'Request failed';
+            throw new Error(errorMessage);
         }
         
         return data;
@@ -142,6 +143,57 @@ async function getAppointmentsAPI() {
 
 async function getAllAppointmentsAPI() {
     return apiRequest('/appointments/all');
+}
+
+// Staff API
+async function getStaffProfileAPI() {
+    return apiRequest('/staff/profile');
+}
+
+async function getStaffAppointmentsAPI(date = null) {
+    const query = date ? `?date=${date}` : '';
+    return apiRequest(`/staff/appointments${query}`);
+}
+
+async function cancelStaffAppointmentAPI(id) {
+    return apiRequest(`/staff/appointments/${id}/cancel`, {
+        method: 'PUT'
+    });
+}
+
+async function getStaffTimeOffAPI() {
+    return apiRequest('/staff/time-off');
+}
+
+async function createStaffTimeOffAPI(payload) {
+    return apiRequest('/staff/time-off', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+    });
+}
+
+async function updateStaffTimeOffAPI(id, payload) {
+    return apiRequest(`/staff/time-off/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(payload)
+    });
+}
+
+async function deleteStaffTimeOffAPI(id) {
+    return apiRequest(`/staff/time-off/${id}`, {
+        method: 'DELETE'
+    });
+}
+
+// Admin schedule API
+async function getAdminScheduleAPI(date) {
+    const query = date ? `?date=${encodeURIComponent(date)}` : '';
+    return apiRequest(`/admin/schedule${query}`);
+}
+
+async function getAdminTimeOffAPI(date) {
+    const query = date ? `?date=${encodeURIComponent(date)}` : '';
+    return apiRequest(`/admin/time-off${query}`);
 }
 
 async function createAppointmentAPI(appointment) {

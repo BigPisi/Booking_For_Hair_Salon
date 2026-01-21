@@ -40,6 +40,12 @@ public class UserService {
         user.setRole(role != null ? role : "public");
         return userRepository.save(user);
     }
+
+    public Long getHairdresserId(Long userId) {
+        return userRepository.findById(userId)
+            .map(User::getHairdresserId)
+            .orElse(null);
+    }
     
     public boolean validatePassword(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);

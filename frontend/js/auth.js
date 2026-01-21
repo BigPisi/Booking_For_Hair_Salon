@@ -29,7 +29,8 @@ async function login() {
         setCurrentUser({
             id: response.userId,
             username: response.username,
-            role: response.role
+            role: response.role,
+            hairdresserId: response.hairdresserId
         });
         updateUIAfterAuth();
         showSection('home');
@@ -55,7 +56,8 @@ async function register() {
         setCurrentUser({
             id: response.userId,
             username: response.username,
-            role: response.role
+            role: response.role,
+            hairdresserId: response.hairdresserId
         });
         updateUIAfterAuth();
         showSection('home');
@@ -81,7 +83,9 @@ function updateUIAfterAuth() {
     const loginBtn = document.getElementById('loginBtn');
     const logoutBtn = document.getElementById('logoutBtn');
     const bookingsLink = document.getElementById('bookingsLink');
+    const staffLink = document.getElementById('staffLink');
     const adminLink = document.getElementById('adminLink');
+    const scheduleLink = document.getElementById('scheduleLink');
     const analyticsLink = document.getElementById('analyticsLink');
     const userInfo = document.getElementById('userInfo');
     
@@ -94,16 +98,27 @@ function updateUIAfterAuth() {
         
         if (currentUser.role === 'admin') {
             adminLink.style.display = 'inline-block';
+            scheduleLink.style.display = 'inline-block';
             analyticsLink.style.display = 'inline-block';
-        } else {
+            staffLink.style.display = 'none';
+        } else if (currentUser.role === 'staff') {
+            staffLink.style.display = 'inline-block';
             adminLink.style.display = 'none';
+            scheduleLink.style.display = 'none';
+            analyticsLink.style.display = 'none';
+        } else {
+            staffLink.style.display = 'none';
+            adminLink.style.display = 'none';
+            scheduleLink.style.display = 'none';
             analyticsLink.style.display = 'none';
         }
     } else {
         loginBtn.style.display = 'inline-block';
         logoutBtn.style.display = 'none';
         bookingsLink.style.display = 'none';
+        staffLink.style.display = 'none';
         adminLink.style.display = 'none';
+        scheduleLink.style.display = 'none';
         analyticsLink.style.display = 'none';
         userInfo.style.display = 'none';
     }

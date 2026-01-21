@@ -5,8 +5,10 @@ import com.salon.model.Appointment;
 import com.salon.model.Hairdresser;
 import com.salon.model.User;
 import com.salon.model.WorkingHours;
+import com.salon.model.HairdresserTimeOff;
 import com.salon.repository.AppointmentRepository;
 import com.salon.repository.HairdresserRepository;
+import com.salon.repository.HairdresserTimeOffRepository;
 import com.salon.repository.ServiceRepository;
 import com.salon.repository.WorkingHoursRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ public class AppointmentService {
     
     @Autowired
     private WorkingHoursRepository workingHoursRepository;
+
+    @Autowired
+    private HairdresserTimeOffRepository hairdresserTimeOffRepository;
     
     public List<Appointment> getUserAppointments(Long userId) {
         User user = userService.findById(userId)
@@ -78,8 +83,8 @@ public class AppointmentService {
     public Appointment cancelAppointment(Long appointmentId, Long userId) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
             .orElseThrow(() -> new RuntimeException("Appointment not found"));
-        
-        if (!appointment.getUser().getId().equals(userId) && !isAdmin(userId)) {
+
+        if (!appointment.getUser().getId().equals(userId) && !isAdmin(userId) && !isStaffForAppointment(userId, appointment)) {
             throw new RuntimeException("Not authorized to cancel this appointment");
         }
         
@@ -106,6 +111,9 @@ public class AppointmentService {
         
         List<Appointment> existingAppointments = appointmentRepository
             .findScheduledByHairdresserAndDate(hairdresser, date);
+
+        List<HairdresserTimeOff> timeOffs = hairdresserTimeOffRepository
+            .findByHairdresserAndDate(hairdresser, date);
         
         LocalTime start = workingHours.getStartTime().toLocalTime();
         LocalTime end = workingHours.getEndTime().toLocalTime();
@@ -121,6 +129,7 @@ public class AppointmentService {
         return slots.stream()
             .filter(slot -> !slot.plusMinutes(durationMinutes).isAfter(end))
             .filter(slot -> isSlotFree(slot, existingAppointments, durationMinutes))
+            .filter(slot -> !isSlotInTimeOff(slot, durationMinutes, timeOffs))
             .collect(Collectors.toList());
     }
     
@@ -145,8 +154,12 @@ public class AppointmentService {
         
         List<Appointment> existingAppointments = appointmentRepository
             .findScheduledByHairdresserAndDate(hairdresser, date);
-        
-        return isSlotFree(time, existingAppointments, durationMinutes);
+
+        List<HairdresserTimeOff> timeOffs = hairdresserTimeOffRepository
+            .findByHairdresserAndDate(hairdresser, date);
+
+        return isSlotFree(time, existingAppointments, durationMinutes)
+            && !isSlotInTimeOff(time, durationMinutes, timeOffs);
     }
     
     private boolean isSlotFree(LocalTime slot, List<Appointment> appointments, int duration) {
@@ -168,10 +181,33 @@ public class AppointmentService {
             .takeWhile(time -> time.plusMinutes(intervalMinutes).isBefore(end) || time.plusMinutes(intervalMinutes).equals(end))
             .collect(Collectors.toList());
     }
+
+    private boolean isSlotInTimeOff(LocalTime slot, int durationMinutes, List<HairdresserTimeOff> timeOffs) {
+        if (timeOffs == null || timeOffs.isEmpty()) {
+            return false;
+        }
+        LocalTime slotEnd = slot.plusMinutes(durationMinutes);
+        for (HairdresserTimeOff timeOff : timeOffs) {
+            LocalTime offStart = timeOff.getStartTime();
+            LocalTime offEnd = timeOff.getEndTime();
+            if (slot.isBefore(offEnd) && slotEnd.isAfter(offStart)) {
+                return true;
+            }
+        }
+        return false;
+    }
     
     private boolean isAdmin(Long userId) {
         return userService.findById(userId)
             .map(u -> "admin".equals(u.getRole()))
+            .orElse(false);
+    }
+
+    private boolean isStaffForAppointment(Long userId, Appointment appointment) {
+        return userService.findById(userId)
+            .map(u -> "staff".equals(u.getRole())
+                && u.getHairdresserId() != null
+                && u.getHairdresserId().equals(appointment.getHairdresser().getId()))
             .orElse(false);
     }
 }

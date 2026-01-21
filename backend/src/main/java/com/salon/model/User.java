@@ -24,6 +24,9 @@ public class User {
     @Column(nullable = false, length = 20)
     private String role = "public";
 
+    @Column(name = "hairdresser_id")
+    private Long hairdresserId;
+
     @Column(name = "first_name", length = 50)
     private String firstName;
 

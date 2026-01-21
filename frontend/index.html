@@ -17,7 +17,9 @@
                 <a href="#" onclick="showSection('home')">Начало</a>
                 <a href="#" onclick="showSection('services')">Услуги</a>
                 <a href="#" onclick="showSection('bookings')" id="bookingsLink" style="display:none;">Моите резервации</a>
+                <a href="#" onclick="showSection('staffSchedule')" id="staffLink" style="display:none;">Моят график</a>
                 <a href="#" onclick="showSection('admin')" id="adminLink" style="display:none;">Админ</a>
+                <a href="#" onclick="showSection('adminSchedule')" id="scheduleLink" style="display:none;">График</a>
                 <a href="#" onclick="showSection('analytics')" id="analyticsLink" style="display:none;">Аналитика</a>
                 <span id="userInfo" style="display:none;"></span>
                 <button id="loginBtn" onclick="showSection('login')">Вход</button>
@@ -111,6 +113,99 @@
         <section id="bookings" class="section">
             <h2>Моите резервации</h2>
             <div id="bookingsList" class="bookings-list"></div>
+        </section>
+
+        <section id="staffSchedule" class="section">
+            <h2>Моят график</h2>
+            <div class="staff-grid">
+                <div class="staff-panel">
+                    <h3>Предстоящи записвания</h3>
+                    <div id="staffScheduleList"></div>
+                </div>
+                <div class="staff-panel">
+                    <h3>Добави почивни часове</h3>
+                    <div class="staff-timeoff">
+                        <label>Дата:</label>
+                        <div class="schedule-date-picker staff-date-picker">
+                            <button type="button" id="staffOffDateDisplay" class="schedule-date-display" onclick="toggleStaffOffCalendar()"></button>
+                            <div id="staffOffCalendarPopover" class="calendar-popover">
+                                <div class="booking-calendar staff-calendar">
+                                    <div class="calendar-header">
+                                        <button type="button" class="calendar-nav" onclick="changeStaffOffCalendarMonth(-1)">‹</button>
+                                        <div id="staffOffCalendarMonthLabel" class="calendar-month"></div>
+                                        <button type="button" class="calendar-nav" onclick="changeStaffOffCalendarMonth(1)">›</button>
+                                    </div>
+                                    <div class="calendar-weekdays">
+                                        <span>Пн</span>
+                                        <span>Вт</span>
+                                        <span>Ср</span>
+                                        <span>Чт</span>
+                                        <span>Пт</span>
+                                        <span>Сб</span>
+                                        <span>Нд</span>
+                                    </div>
+                                    <div id="staffOffCalendarDays" class="calendar-days"></div>
+                                    <div id="staffOffCalendarSelected" class="calendar-selected"></div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="staffOffDate">
+                        </div>
+                        <div class="staff-timeoff-row">
+                            <div>
+                                <label>Начало:</label>
+                                <select id="staffOffStart"></select>
+                            </div>
+                            <div>
+                                <label>Край:</label>
+                                <select id="staffOffEnd"></select>
+                            </div>
+                        </div>
+                        <label>Причина (по желание):</label>
+                        <input type="text" id="staffOffReason" placeholder="напр. Личен ангажимент">
+                        <button class="btn-primary" onclick="saveTimeOff()">Запази</button>
+                        <button class="btn-secondary" id="staffOffCancelEdit" onclick="cancelTimeOffEdit()" style="display:none;">Отказ</button>
+                        <div id="staffOffMessage" class="error-message"></div>
+                        <div id="staffTimeOffList" class="timeoff-list"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="adminSchedule" class="section">
+            <h2>График на салона</h2>
+            <div class="schedule-filter">
+                <label>Дата:</label>
+                <div class="schedule-date-picker">
+                    <button type="button" id="adminScheduleDateDisplay" class="schedule-date-display" onclick="toggleAdminCalendar()"></button>
+                    <div id="adminCalendarPopover" class="calendar-popover">
+                        <div class="booking-calendar admin-calendar">
+                            <div class="calendar-header">
+                                <button type="button" class="calendar-nav" onclick="changeAdminCalendarMonth(-1)">‹</button>
+                                <div id="adminCalendarMonthLabel" class="calendar-month"></div>
+                                <button type="button" class="calendar-nav" onclick="changeAdminCalendarMonth(1)">›</button>
+                            </div>
+                            <div class="calendar-weekdays">
+                                <span>Пн</span>
+                                <span>Вт</span>
+                                <span>Ср</span>
+                                <span>Чт</span>
+                                <span>Пт</span>
+                                <span>Сб</span>
+                                <span>Нд</span>
+                            </div>
+                            <div id="adminCalendarDays" class="calendar-days"></div>
+                            <div id="adminCalendarSelected" class="calendar-selected"></div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="adminScheduleDate">
+                </div>
+                <button class="btn-primary" onclick="loadAdminSchedule()">Покажи</button>
+            </div>
+            <div id="adminScheduleList" class="schedule-list"></div>
+            <div class="schedule-timeoff">
+                <h3>Почивки</h3>
+                <div id="adminTimeOffList" class="timeoff-list"></div>
+            </div>
         </section>
 
         <!-- Admin Section -->
@@ -395,6 +490,8 @@
     <script src="js/services.js"></script>
     <script src="js/bookings.js"></script>
     <script src="js/admin.js"></script>
+    <script src="js/staff.js"></script>
+    <script src="js/adminSchedule.js"></script>
     <script src="js/analytics.js"></script>
     <script src="js/main.js"></script>
 </body>

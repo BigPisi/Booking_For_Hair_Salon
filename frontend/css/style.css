@@ -14,7 +14,7 @@
 
 @font-face {
     font-family: 'Silverandes';
-    src: url('assets/SilverandesTrial.otf') format('opentype');
+    src: url('../assets/SilverandesTrial.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -705,13 +705,21 @@ body:not([data-active-section="home"]) .benefits-section {
     margin-left: 1rem;
 }
 
+.schedule-row .status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    justify-self: end;
+}
+
 .status.scheduled {
     background: var(--rustic-olive);
     color: white;
 }
 
 .status.completed {
-    background: var(--rustic-forest);
+    background: #2e7d32;
     color: white;
 }
 
@@ -1046,6 +1054,219 @@ body[data-active-section="analytics"] .footer-content {
     padding: 2rem 2rem 1.5rem;
 }
 
+.staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.staff-panel {
+    background: #fff;
+    padding: 1.8rem;
+    border-radius: 16px;
+    border: 1px solid rgba(181, 193, 184, 0.6);
+    box-shadow: 0 10px 25px rgba(15, 17, 17, 0.08);
+}
+
+.staff-appointment {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(181, 193, 184, 0.4);
+}
+
+.staff-appointment:last-child {
+    border-bottom: none;
+}
+
+.staff-appointment .status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-left: 1rem;
+    display: inline-block;
+}
+
+.staff-timeoff input,
+.staff-timeoff select {
+    width: 100%;
+    padding: 0.6rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid var(--rustic-sage);
+    margin-bottom: 0.8rem;
+    font: inherit;
+}
+
+.staff-timeoff-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+}
+
+.timeoff-list {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.8rem;
+}
+
+.timeoff-item {
+    border: 1px solid rgba(181, 193, 184, 0.6);
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    background: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.timeoff-item h4 {
+    margin-bottom: 0.3rem;
+}
+
+.timeoff-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.schedule-timeoff {
+    margin-top: 2rem;
+}
+
+.schedule-timeoff h3 {
+    margin-bottom: 0.8rem;
+}
+
+.timeoff-group {
+    display: grid;
+    gap: 0.6rem;
+}
+
+.schedule-filter {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.schedule-date-picker {
+    position: relative;
+}
+
+.schedule-date-display {
+    min-width: 180px;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    border: 2px solid var(--rustic-sage);
+    font: inherit;
+    font-weight: 600;
+    color: var(--rustic-forest);
+    background: #ffffff;
+    box-shadow: 0 6px 14px rgba(17, 41, 23, 0.08);
+    text-align: left;
+    cursor: pointer;
+}
+
+.staff-timeoff .schedule-date-display {
+    width: 100%;
+}
+
+.schedule-date-display:focus {
+    outline: none;
+    border-color: var(--rustic-olive);
+    box-shadow: 0 0 0 3px rgba(131, 130, 100, 0.25);
+}
+
+.calendar-popover {
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    left: 0;
+    z-index: 20;
+    display: none;
+}
+
+.calendar-popover.open {
+    display: block;
+}
+
+.calendar-popover .booking-calendar {
+    margin: 0;
+    min-width: 320px;
+}
+
+.schedule-filter input {
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    border: 2px solid var(--rustic-sage);
+    font: inherit;
+    font-weight: 600;
+    color: var(--rustic-forest);
+    background: #ffffff;
+    box-shadow: 0 6px 14px rgba(17, 41, 23, 0.08);
+    min-width: 180px;
+}
+
+.schedule-filter input:focus {
+    outline: none;
+    border-color: var(--rustic-olive);
+    box-shadow: 0 0 0 3px rgba(131, 130, 100, 0.25);
+}
+
+.schedule-filter .btn-primary {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.schedule-list {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.schedule-group {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(181, 193, 184, 0.6);
+    box-shadow: 0 10px 25px rgba(15, 17, 17, 0.06);
+}
+
+.schedule-table {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.schedule-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    background: rgba(181, 193, 184, 0.2);
+}
+
+.schedule-time {
+    font-weight: 700;
+    color: var(--rustic-forest);
+}
+
+.schedule-service {
+    font-weight: 600;
+}
+
+.schedule-client {
+    color: #4d5a4f;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -1087,8 +1308,17 @@ body[data-active-section="analytics"] .footer-content {
 }
 
 .btn-primary {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
     background: var(--rustic-olive);
     color: white;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-primary:hover {
@@ -1096,11 +1326,24 @@ body[data-active-section="analytics"] .footer-content {
 }
 
 .btn-secondary {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
     background: var(--rustic-sage);
     color: var(--rustic-forest);
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-secondary:hover {
     background: var(--rustic-olive);
     color: white;
+}
+
+.staff-appointment button {
+    margin-left: 0.5rem;
 }

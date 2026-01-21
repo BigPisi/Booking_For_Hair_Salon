@@ -16,6 +16,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByUser(User user);
     List<Appointment> findByHairdresser(Hairdresser hairdresser);
     List<Appointment> findByUserOrderByAppointmentDateDescAppointmentTimeDesc(User user);
+    List<Appointment> findByAppointmentDateOrderByAppointmentTimeAsc(LocalDate appointmentDate);
     
     @Query("SELECT a FROM Appointment a WHERE a.hairdresser = :hairdresser " +
            "AND a.appointmentDate = :date AND a.status = 'scheduled'")

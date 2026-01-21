@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .antMatchers("/api/hairdressers/**").permitAll()
                 .antMatchers("/api/available-slots/**").permitAll()
                 .antMatchers("/api/appointments/**").authenticated()
+                .antMatchers("/api/staff/**").hasRole("STAFF")
                 .antMatchers("/api/analytics/**").hasRole("ADMIN")
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
@@ -62,7 +63,12 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:8000", "http://127.0.0.1:8000"));
+        configuration.setAllowedOrigins(List.of(
+            "http://localhost:8000",
+            "http://127.0.0.1:8000",
+            "http://localhost:5173",
+            "http://127.0.0.1:5173"
+        ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

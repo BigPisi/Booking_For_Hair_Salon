@@ -10,4 +10,5 @@ public class AuthResponse {
     private String username;
     private String role;
     private Long userId;
+    private Long hairdresserId;
 }

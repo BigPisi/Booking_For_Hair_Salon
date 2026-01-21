@@ -5,26 +5,13 @@
 DROP TABLE IF EXISTS appointments CASCADE;
 DROP TABLE IF EXISTS service_prices CASCADE;
 DROP TABLE IF EXISTS working_hours CASCADE;
+DROP TABLE IF EXISTS hairdresser_time_off CASCADE;
 DROP TABLE IF EXISTS services CASCADE;
 DROP TABLE IF EXISTS categories CASCADE;
 DROP TABLE IF EXISTS hairdressers CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
--- 1. Users table (admin and public users)
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    role VARCHAR(20) NOT NULL DEFAULT 'public' CHECK (role IN ('admin', 'public')),
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    phone VARCHAR(20),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- 2. Categories table (service categories)
+-- 1. Categories table (service categories)
 CREATE TABLE categories (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) UNIQUE NOT NULL,
@@ -43,7 +30,7 @@ CREATE TABLE services (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 4. Hairdressers table
+-- 3. Hairdressers table
 CREATE TABLE hairdressers (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -52,6 +39,21 @@ CREATE TABLE hairdressers (
     specialization TEXT,
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 4. Users table (admin, staff, and public users)
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL DEFAULT 'public' CHECK (role IN ('admin', 'public', 'staff')),
+    hairdresser_id INTEGER REFERENCES hairdressers(id) ON DELETE SET NULL,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    phone VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 5. Service Prices table (allows different prices per hairdresser)
@@ -76,7 +78,18 @@ CREATE TABLE working_hours (
     UNIQUE(hairdresser_id, day_of_week)
 );
 
--- 7. Appointments table (booking records)
+-- 7. Hairdresser time off table
+CREATE TABLE hairdresser_time_off (
+    id SERIAL PRIMARY KEY,
+    hairdresser_id INTEGER NOT NULL REFERENCES hairdressers(id) ON DELETE CASCADE,
+    date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL CHECK (end_time > start_time),
+    reason TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 8. Appointments table (booking records)
 CREATE TABLE appointments (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -99,12 +112,10 @@ CREATE INDEX idx_appointments_hairdresser_date ON appointments(hairdresser_id, a
 CREATE INDEX idx_services_category ON services(category_id);
 CREATE INDEX idx_service_prices_service ON service_prices(service_id);
 CREATE INDEX idx_working_hours_hairdresser ON working_hours(hairdresser_id);
+CREATE INDEX idx_time_off_hairdresser ON hairdresser_time_off(hairdresser_id);
+CREATE INDEX idx_time_off_date ON hairdresser_time_off(date);
 
 -- Insert sample data
-
--- Insert default admin user (password: admin123 - should be hashed in production)
-INSERT INTO users (username, email, password, role, first_name, last_name) VALUES
-('admin', 'admin@salon.com', 'admin123', 'admin', 'Admin', 'User');
 
 -- Insert categories
 INSERT INTO categories (name, description) VALUES
@@ -121,6 +132,17 @@ INSERT INTO hairdressers (name, email, phone, specialization, is_active) VALUES
 ('John Smith', 'john@salon.com', '555-0102', 'Haircuts, Beard & Mustache', TRUE),
 ('Sarah Williams', 'sarah@salon.com', '555-0103', 'Hair Styling, Hair Treatments', TRUE),
 ('Emma Brown', 'emma@salon.com', '555-0104', 'Hair Coloring, Extensions', TRUE);
+
+-- Insert default admin user (password: admin123 - should be hashed in production)
+INSERT INTO users (username, email, password, role, first_name, last_name) VALUES
+('admin', 'admin@salon.com', 'admin123', 'admin', 'Admin', 'User');
+
+-- Insert staff users linked to hairdressers (password: staff123 - should be hashed in production)
+INSERT INTO users (username, email, password, role, hairdresser_id, first_name, last_name) VALUES
+('maria', 'maria@salon.com', 'staff123', 'staff', 1, 'Maria', 'Johnson'),
+('john', 'john@salon.com', 'staff123', 'staff', 2, 'John', 'Smith'),
+('sarah', 'sarah@salon.com', 'staff123', 'staff', 3, 'Sarah', 'Williams'),
+('emma', 'emma@salon.com', 'staff123', 'staff', 4, 'Emma', 'Brown');
 
 -- Insert services
 INSERT INTO services (category_id, name, description, duration_minutes) VALUES

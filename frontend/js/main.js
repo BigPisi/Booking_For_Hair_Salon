@@ -16,8 +16,12 @@ function showSection(sectionId) {
             loadServices();
         } else if (sectionId === 'bookings') {
             loadBookings();
+        } else if (sectionId === 'staffSchedule') {
+            loadStaffSchedule();
         } else if (sectionId === 'admin') {
             loadAdmin();
+        } else if (sectionId === 'adminSchedule') {
+            loadAdminSchedule();
         } else if (sectionId === 'analytics') {
             loadAnalytics();
         }
