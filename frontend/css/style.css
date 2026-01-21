@@ -839,27 +839,211 @@ body:not([data-active-section="home"]) .benefits-section {
     font-family: inherit;
 }
 
-.analytics-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+.analytics-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
     gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.analytics-header h2 {
+    margin-bottom: 0.4rem;
+}
+
+.analytics-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.filter-btn {
+    border: 1px solid var(--rustic-sage);
+    background: #fff;
+    color: var(--rustic-forest);
+    border-radius: 999px;
+    padding: 0.45rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.filter-btn.active {
+    background: var(--rustic-olive);
+    color: #fff;
+    border-color: var(--rustic-olive);
+}
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: minmax(240px, 340px) 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.analytics-kpis {
+    display: grid;
+    gap: 1.2rem;
 }
 
 .stat-card {
-    background: linear-gradient(135deg, var(--rustic-olive) 0%, var(--rustic-forest) 100%);
-    color: white;
-    padding: 2rem;
-    border-radius: 10px;
-    text-align: center;
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px rgba(15, 17, 17, 0.08);
+    border: 1px solid rgba(181, 193, 184, 0.6);
+}
+
+.stat-card.primary {
+    padding: 1.8rem;
+    border: none;
+    background: linear-gradient(135deg, #6b6a58 0%, #3f4438 100%);
+    color: #fff;
+}
+
+.stat-card.primary.revenue {
+    background: linear-gradient(135deg, #80795f 0%, #4a4f41 100%);
+}
+
+.stat-card.success {
+    border-left: 5px solid #6fa072;
+}
+
+.stat-card.danger {
+    border-left: 5px solid #b66b6b;
+}
+
+.stat-card.neutral {
+    border-left: 5px solid var(--rustic-sage);
 }
 
 .stat-card h3 {
     font-size: 2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
 }
 
 .stat-card p {
-    opacity: 0.9;
+    margin: 0;
+    font-weight: 600;
+}
+
+.analytics-panels {
+    display: grid;
+    gap: 2rem;
+}
+
+.analytics-panel {
+    background: #fff;
+    border-radius: 18px;
+    padding: 1.8rem;
+    box-shadow: 0 10px 25px rgba(15, 17, 17, 0.06);
+    border: 1px solid rgba(181, 193, 184, 0.5);
+}
+
+.panel-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.panel-subtitle {
+    color: var(--rustic-olive);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.panel-empty {
+    color: var(--rustic-olive);
+    font-weight: 600;
+}
+
+.popular-list {
+    display: grid;
+    gap: 1.2rem;
+}
+
+.popular-item {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.popular-title {
+    font-weight: 700;
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+}
+
+.popular-title .rank {
+    color: var(--rustic-olive);
+}
+
+.popular-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    color: #4d5a4f;
+    font-size: 0.9rem;
+}
+
+.popular-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(181, 193, 184, 0.4);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.popular-bar span {
+    display: block;
+    height: 100%;
+    background: var(--rustic-olive);
+}
+
+.chart-panel .chart-bars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 0.6rem;
+    align-items: end;
+    min-height: 180px;
+}
+
+.chart-bar {
+    display: grid;
+    gap: 0.35rem;
+    justify-items: center;
+    color: var(--rustic-forest);
+    font-size: 0.85rem;
+}
+
+.chart-bar .bar {
+    width: 100%;
+    max-width: 40px;
+    background: linear-gradient(180deg, #6e6c58, #3f4438);
+    border-radius: 12px 12px 6px 6px;
+    min-height: 8px;
+}
+
+.chart-bar .value {
+    font-weight: 600;
+}
+
+body[data-active-section="analytics"] .site-footer {
+    background: #f2f2ed;
+}
+
+body[data-active-section="analytics"] .footer-content {
+    padding: 2rem 2rem 1.5rem;
 }
 
 .modal {
